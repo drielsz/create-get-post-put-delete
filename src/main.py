@@ -28,6 +28,10 @@ class ArticleSchema(ma.Schema):
 article_schema = ArticleSchema()
 articles_schema = ArticleSchema(many=True)
 
+@app.route('/')
+def hello_world():
+    return jsonify({"Hello": "World"})
+
 @app.route('/get', methods=['GET'])
 def get_article():
     all_articles = Articles.query.all()
