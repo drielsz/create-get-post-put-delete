@@ -1,12 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-import datetime
 from flask_marshmallow import Marshmallow
+from dotenv import load_dotenv
+import datetime
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@localhost/flaskapi'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+load_dotenv()
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -27,6 +27,10 @@ class ArticleSchema(ma.Schema):
         
 article_schema = ArticleSchema()
 articles_schema = ArticleSchema(many=True)
+
+@app.route('/')
+def hello_world():
+    return jsonify({"Hello": "World"})
 
 @app.route('/get', methods=['GET'])
 def get_article():
